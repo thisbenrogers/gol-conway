@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback } from 'react';
 import { produce as produceNext } from 'immer';
 
-const manageTime = ({ interval = 300 }) => {
+const useTime = ({ interval = 300 }) => {
 
   const runningRef = useRef(false)
 
@@ -29,4 +29,4 @@ const manageTime = ({ interval = 300 }) => {
   return { start, stop, isRunning, generation }
 }
 
-export default manageTime;
+export default useTime;
