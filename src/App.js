@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
 
-function App() {
+import manageSpace from './space/space';
+import manageTime from './time/time';
 
-  const start = () => true
-  const stop = () => false
-  const isRunning = () => false
-  const clearGrid = () => null
+function App() {
+  const { start, stop, isRunning, generation } = manageTime({ interval : 250 })
+  const { grid, setCell, clearGrid } = manageSpace({ gridRows : 25,  gridColumns : 25 })
 
   return (
     <div className="App">
