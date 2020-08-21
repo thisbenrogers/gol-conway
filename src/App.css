@@ -4,7 +4,7 @@
 
 .App-header {
   background-color: #282c34;
-  height: 25vh;
+  height: 7vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,14 +14,22 @@
 }
 
 .App-body {
-  height: 75vh;
+  display: flex;
+  flex-direction: row;
   background: white;
 }
 
+.controls-container {
+  min-width: 30vw;
+}
+
+.grid-container {
+
+}
+
 .grid {
-  max-width: 500px;
-  max-height: 500px;
+  min-width: 70vw;
   display: grid;
-  grid-template-columns: repeat(25, 1fr);
+  grid-template-columns: repeat(50, 1fr);
   grid-auto-rows: 17px;
 }

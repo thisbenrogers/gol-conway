@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback } from "react";
 import { produce } from 'immer';
 
-const useConways = ({ gridRows = 25, gridColumns = 25 }) => {
+const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
 
   let [generation, setGeneration] = useState(0)
 
@@ -26,11 +26,11 @@ const useConways = ({ gridRows = 25, gridColumns = 25 }) => {
     for (let i = 0; i < gridRows; i++) {
       r.push(Array.from(new Array(gridColumns), () => 0))
     }
-    r[11][12] = 1;
-    r[12][12] = 1;
-    r[13][12] = 1;
-    r[11][11] = 1;
-    r[12][13] = 1;
+    r[23][24] = 1;
+    r[24][24] = 1;
+    r[25][24] = 1;
+    r[23][23] = 1;
+    r[24][25] = 1;
     return r;
   }
 
@@ -39,13 +39,13 @@ const useConways = ({ gridRows = 25, gridColumns = 25 }) => {
     for (let i = 0; i < gridRows; i++) {
       r.push(Array.from(new Array(gridColumns), () => 0))
     }
-    r[11][10] = 1;
-    r[12][12] = 1;
-    r[13][9] = 1;
-    r[13][10] = 1;
-    r[13][13] = 1;
-    r[13][14] = 1;
-    r[13][15] = 1;
+    r[23][22] = 1;
+    r[24][24] = 1;
+    r[25][21] = 1;
+    r[25][22] = 1;
+    r[25][25] = 1;
+    r[25][26] = 1;
+    r[25][27] = 1;
     return r;
   }
 
@@ -54,12 +54,12 @@ const useConways = ({ gridRows = 25, gridColumns = 25 }) => {
     for (let i = 0; i < gridRows; i++) {
       r.push(Array.from(new Array(gridColumns), () => 0))
     }
-    r[10][11] = 1;
-    r[10][12] = 1;
-    r[10][13] = 1;
-    r[12][12] = 1;
-    r[13][12] = 1;
-    r[14][12] = 1;
+    r[22][23] = 1;
+    r[22][24] = 1;
+    r[22][25] = 1;
+    r[24][24] = 1;
+    r[25][24] = 1;
+    r[26][24] = 1;
     return r;
   }
 
@@ -144,12 +144,12 @@ const useConways = ({ gridRows = 25, gridColumns = 25 }) => {
         })
       )))
       setGeneration(++generation)
-    setTimeout(run, 300);
+    setTimeout(run, 50);
 
   }, [generation, nodeNeighbors])
 
 
-  return { grid, setCell, start, stop, evolving, clear, generation };
+  return { acorn, rPentomino, thunderbird, grid, setGrid, setCell, start, stop, evolving, clear, generation };
 }
 
 export default useConways; 
