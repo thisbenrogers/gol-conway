@@ -21,6 +21,48 @@ const useConways = ({ gridRows = 25, gridColumns = 25 }) => {
     return r;
   }
 
+  const rPentomino = () => {
+    let r = []
+    for (let i = 0; i < gridRows; i++) {
+      r.push(Array.from(new Array(gridColumns), () => 0))
+    }
+    r[11][12] = 1;
+    r[12][12] = 1;
+    r[13][12] = 1;
+    r[11][11] = 1;
+    r[12][13] = 1;
+    return r;
+  }
+
+  const acorn = () => {
+    let r = []
+    for (let i = 0; i < gridRows; i++) {
+      r.push(Array.from(new Array(gridColumns), () => 0))
+    }
+    r[11][10] = 1;
+    r[12][12] = 1;
+    r[13][9] = 1;
+    r[13][10] = 1;
+    r[13][13] = 1;
+    r[13][14] = 1;
+    r[13][15] = 1;
+    return r;
+  }
+
+  const thunderbird = () => {
+    let r = []
+    for (let i = 0; i < gridRows; i++) {
+      r.push(Array.from(new Array(gridColumns), () => 0))
+    }
+    r[10][11] = 1;
+    r[10][12] = 1;
+    r[10][13] = 1;
+    r[12][12] = 1;
+    r[13][12] = 1;
+    r[14][12] = 1;
+    return r;
+  }
+
 
 
   const runningRef = useRef(false);
