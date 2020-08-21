@@ -2,10 +2,10 @@ import React from 'react';
 import './App.css';
 
 import useSpace from './space/space';
-import manageTime from './time/time';
+import useTime from './time/time';
 
 function App() {
-  const { start, stop, isRunning, generation } = manageTime({ interval : 250 })
+  const { start, stop, isRunning, generation } = useTime({ interval : 250 })
   const { grid, setCell, clearGrid } = useSpace({ gridRows : 25,  gridColumns : 25 })
 
   return (
@@ -15,7 +15,21 @@ function App() {
       </header>
       <body className="App-body">
         <div className="grid">
-          <h2>grid</h2>
+          {
+            grid.map((row, r) =>
+              row.map((col, c) =>
+                <div key={`${r}-${c}`} 
+                    style={{
+                      border: '1px solid black',
+                      backgroundColor: grid[r][c] ? 'black' : undefined
+                    }}
+                    onClick={() => {
+                      setCell(r, c, !grid[r][c]);
+                    }}
+                />
+              )
+            )
+          }
         </div>
         <button onClick={() => { 
           if(isRunning()){
