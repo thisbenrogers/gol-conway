@@ -1,19 +1,17 @@
 import React from 'react';
 import './App.css';
 
-import useSpace from './space/space';
-import useTime from './time/time';
+import useConways from './gol';
 
 function App() {
-  const { start, stop, isRunning, generation } = useTime({ interval : 250 })
-  const { grid, setCell, clearGrid } = useSpace({ gridRows : 25,  gridColumns : 25 })
+  const { grid, setCell, start, stop, evolving, clear, generation } = useConways({ gridRows : 25,  gridColumns : 25 })
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>Conway's Game of Life</h1>
       </header>
-      <body className="App-body">
+      <div className="App-body">
         <div className="grid">
           {
             grid.map((row, r) =>
@@ -32,19 +30,20 @@ function App() {
           }
         </div>
         <button onClick={() => { 
-          if(isRunning()){
-            stop() ; 
+          if(evolving()){
+            stop() 
           }
           else{
-            start() ; 
+            start()
           }
-        }}>{isRunning()? 'Stop' : 'Start'}</button>
-        <button disabled={isRunning()} onClick={() => {
-          if(!isRunning()){
-            clearGrid()
+        }}>{evolving()? 'Stop' : 'Start'}</button>
+        <button disabled={evolving()} onClick={() => {
+          if(!evolving()){
+            clear()
           }
-        }}>{isRunning() ? '...' : "Clear"}</button>
-      </body>
+        }}>{evolving() ? '...' : "Clear"}</button>
+        <h3>Generation: {generation}</h3>
+      </div>
     </div>
   );
 }
