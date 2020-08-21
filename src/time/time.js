@@ -30,7 +30,6 @@ const useTime = ({ interval = 300 }) => {
 
   const runSimulation = useCallback(() => {
     if (!runningRef.current) return;
-
     setGrid(g => produceNext(g, gCopy =>
       gCopy.forEach((row, r) =>
         row.forEach((_col, c) => {

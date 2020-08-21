@@ -19,8 +19,8 @@
 }
 
 .grid {
-  max-width: 400px;
-  max-height: 400px;
+  max-width: 500px;
+  max-height: 500px;
   display: grid;
   grid-template-columns: repeat(25, 1fr);
   grid-auto-rows: 17px;

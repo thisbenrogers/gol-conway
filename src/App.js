@@ -18,7 +18,7 @@ function App() {
           {
             grid.map((row, r) =>
               row.map((col, c) =>
-                <div key={`${r}-${c}`} 
+                <div key={`${r}-${c}`}
                     style={{
                       border: '1px solid black',
                       backgroundColor: grid[r][c] ? 'black' : undefined
