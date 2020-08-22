@@ -149,7 +149,7 @@ const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
   }, [generation, nodeNeighbors])
 
 
-  return { acorn, rPentomino, thunderbird, grid, setGrid, setCell, start, stop, evolving, clear, generation };
+  return { random, acorn, rPentomino, thunderbird, grid, setGrid, setCell, start, stop, evolving, clear, generation };
 }
 
 export default useConways; 
