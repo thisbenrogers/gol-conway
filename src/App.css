@@ -4,11 +4,44 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  height: 7vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.App-body {
+  display: flex;
+  flex-direction: row;
+  background: white;
+}
+
+.controls-container {
+  min-width: 30vw;
+}
+
+.button-container {
+  padding: 2%;
+}
+
+.button-container > button {
+  margin: 2%;
+}
+
+.grid-container {
+
+}
+
+.grid {
+  min-width: 70vw;
+  display: grid;
+  grid-template-columns: repeat(50, 1fr);
+  grid-auto-rows: 17px;
+}
+
+label {
+  font-weight: 700;
 }
