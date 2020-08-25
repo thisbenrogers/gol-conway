@@ -1,10 +1,16 @@
 import { useRef, useState, useCallback } from "react";
 import { produce } from 'immer';
 
+// This implementation of Conway's Game of Life is provided as a hook called useConways
+// This hook returns several functions and variables, including:
+//    Seed patterns for empty grid, random grid, and 3 methuselah seeds,
+//    Controls for reading the grid, setting the grid, and setting individual cells,
+//    Functions to control stopping and stopping the game, as well as clearing the grid
+//    and informational functions, a boolean called isEvolving() and a generational counter
+
 const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
 
-  let [generation, setGeneration] = useState(0)
-
+  // Returns an empty 2d array
   const empty = () => {
     let r = []
     for (let i = 0; i < gridRows; i++) {
@@ -12,14 +18,20 @@ const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
     }
     return r;
   }
-
+  
+  // returns a randomized 2d array
   const random = () => {
     let r = []
     for (let i = 0; i < gridRows; i++) {
-      r.push(Array.from(new Array(gridColumns), () => Math.random() < 1 / 2 ? 1 : 0));
+      r.push(Array.from(new Array(gridColumns), () => Math.random() < 1 / 5 ? 1 : 0));
     }
     return r;
   }
+  
+  // Methuselah seeds rPentomino, acorn, and thunderbird
+  // 
+  //    Methuselah seeds have a lifespan that is much 
+  //    longer than their diminuitive seed state might imply
 
   const rPentomino = () => {
     let r = []
@@ -33,7 +45,7 @@ const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
     r[24][25] = 1;
     return r;
   }
-
+  
   const acorn = () => {
     let r = []
     for (let i = 0; i < gridRows; i++) {
@@ -48,7 +60,7 @@ const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
     r[25][27] = 1;
     return r;
   }
-
+  
   const thunderbird = () => {
     let r = []
     for (let i = 0; i < gridRows; i++) {
@@ -62,18 +74,25 @@ const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
     r[26][24] = 1;
     return r;
   }
-
-
+  
+  // 
+  // Refs and State
+  // 
 
   const runningRef = useRef(false);
 
-  const [running, setrunning] = useState(false)
+  let [generation, setGeneration] = useState(0)
 
+  const [running, setrunning] = useState(false)
 
   const [grid, setGrid] = useState(() => {
     return empty();
   });
 
+
+  // 
+  // Adds individual cells to the grid 
+  //
 
 
   const setCell = (r, c, value) => {
@@ -83,14 +102,18 @@ const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
       });
     });
   }
-  const evolving = () => {
+
+  
+  const isEvolving = () => {
     return running;
   }
+
   const start = () => {
     setrunning(true);
     runningRef.current = true;
     run();
   }
+  
   const stop = () => {
     setrunning(false);
     runningRef.current = false;
@@ -98,9 +121,13 @@ const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
 
   const clear = () => {
     setGrid(empty());
-    setGeneration(0)
+    setGeneration(0);
   }
 
+  // 
+  // nodeNeighbors returns an integer that represents the number of
+  // live neighbors a single cell has.
+  // 
   const nodeNeighbors = useCallback((g, r, c) => {
     let n = 0;
     const neighbors = [
@@ -123,33 +150,54 @@ const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
       }
     })
     return n;
-  }, []);
+  });
 
+
+  // the run() function runs through each cell of the grid,
+  // determines the number "n" of neighbors by using nodeNeighbors(),
+  // applies the rules of GOL,
+  // increments a generational counter,
+  // and recursively starts again based on a timeout()
 
   const run = useCallback(() => {
     if (!runningRef.current) return;
 
     setGrid(g => produce(g, gCopy =>
       gCopy.forEach((row, r) =>
-        row.forEach((_col, c) => {
+        row.forEach((_, c) => {
 
           let n = nodeNeighbors(g, r, c);
 
-          if (gCopy[r][c] == 0 && n == 3) {
-            gCopy[r][c] = 1;
-          }
-          else {
-            if (n < 2 || n > 3) gCopy[r][c] = 0;
+          if (gCopy[r][c] == 0 && n == 3) {     // These are the rules of Conway's GOL
+            gCopy[r][c] = 1;                    //
+          }                                     //  Based on the rules:
+          else {                                //      1 is assigned to cells that survive
+            if (n < 2 || n > 3) {               //      0 is assigned to cells that die
+              gCopy[r][c] = 0                   //
+            };
           }
         })
       )))
-      setGeneration(++generation)
-    setTimeout(run, 50);
+    setGeneration(++generation)
+    setTimeout(run, 25);
 
-  }, [generation, nodeNeighbors])
+  })
 
 
-  return { random, acorn, rPentomino, thunderbird, grid, setGrid, setCell, start, stop, evolving, clear, generation };
+  return { 
+    random,
+    acorn,
+    rPentomino,
+    thunderbird,
+    grid,
+    setGrid,
+    setCell,
+    start,
+    stop,
+    clear,
+    isEvolving,
+    generation
+  };
 }
 
 export default useConways; 

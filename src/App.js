@@ -4,7 +4,20 @@ import './App.css';
 import useConways from './gol';
 
 function App() {
-  const { random, acorn, rPentomino, thunderbird, grid, setGrid, setCell, start, stop, evolving, clear, generation } = useConways({ gridRows : 50,  gridColumns : 50 })
+  const { 
+    random,
+    acorn,
+    rPentomino,
+    thunderbird,
+    grid,
+    setGrid,
+    setCell,
+    start,
+    stop,
+    isEvolving,
+    clear,
+    generation 
+  } = useConways({ gridRows : 50,  gridColumns : 50 })
 
   return (
     <div className="App">
@@ -16,18 +29,18 @@ function App() {
           <label htmlFor="play">Play the Game!</label>
           <div name='play' className="main-controls button-container">
             <button onClick={() => { 
-              if(evolving()){
+              if(isEvolving()){
                 stop() 
               }
               else{
                 start()
               }
-            }}>{evolving()? 'Stop' : 'Start'}</button>
-            <button disabled={evolving()} onClick={() => {
-              if(!evolving()){
+            }}>{isEvolving()? 'Stop' : 'Start'}</button>
+            <button disabled={isEvolving()} onClick={() => {
+              if(!isEvolving()){
                 clear()
               }
-            }}>{evolving() ? 'Clear' : "Clear"}</button>
+            }}>{isEvolving() ? 'Clear' : "Clear"}</button>
           </div>
           <label htmlFor="random">Randomize the grid</label>
           <div name='random' className="random-containter button-container">
@@ -64,24 +77,25 @@ function App() {
           <ol className="rules">
             <li>Any live cell with two or three live neighbours survives.</li>
             <li>Any dead cell with three live neighbours becomes a live cell.</li>
-            <li>All other live cells die in the next generation. Similarly, all other dead cells stay dead.</li>
+            <li>All other live cells die in the next generation.</li> 
+            <li>Similarly, all other dead cells stay dead.</li>
           </ol>
           <h2 className="rules">This Implementation:</h2>
           <p className="implementation">
             This version of Conway's GOL was created by Ben Rogers.
             He made it in React as a hook.
             The Data-Structure is currently a 2-dimensional Array.
-            Double-buffering is used, and a hashlife implementation is in the works.
+            You can find the source <a href="https://github.com/thisbenrogers/gol-conway">here</a>
           </p>
         </div>
         <div className="grid-container">
           <div className="grid">
             {
               grid.map((row, r) =>
-                row.map((col, c) =>
+                row.map((_, c) =>
                   <div key={`${r}-${c}`}
                       style={{
-                        border: '1px solid black',
+                        border: isEvolving() ? '1px solid white' : '1px solid aliceblue' ,
                         backgroundColor: grid[r][c] ? 'black' : undefined
                       }}
                       onClick={() => {
