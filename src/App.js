@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import './App.css';
 
-import useConways from './gol';
+import useConways from './hooks/useConways';
 
 function App() {
+
+  const [rwClm, setRwClm] = useState(50);
+
   const { 
     random,
     acorn,
@@ -17,7 +21,7 @@ function App() {
     isEvolving,
     clear,
     generation 
-  } = useConways({ gridRows : 50,  gridColumns : 50 })
+  } = useConways({ gridRows : rwClm,  gridColumns : rwClm })
 
   return (
     <div className="App">
