@@ -89,6 +89,8 @@ const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
     return empty();
   });
 
+  const [rate, setRate] = useState(25)
+
 
 
   // 
@@ -178,10 +180,9 @@ const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
       ))
     )
     setGeneration(++generation)
-    setTimeout(run, 25);
+    setTimeout(run, () => rate);
 
   }, [runningRef, nodeNeighbors, generation])
-
 
   return { 
     random,
@@ -195,7 +196,9 @@ const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
     stop,
     clear,
     isEvolving,
-    generation
+    generation,
+    rate,
+    setRate
   };
 }
 
