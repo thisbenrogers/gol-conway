@@ -20,9 +20,7 @@ function App() {
     stop,
     isEvolving,
     clear,
-    generation,
-    setRate,
-    rate
+    generation
   } = useConways({ gridRows : rwClm,  gridColumns : rwClm })
 
   return (
@@ -78,13 +76,6 @@ function App() {
                 clear()
               }
             }}>{isEvolving() ? 'Clear' : 'Clear'}</button>
-            <br />
-            <button disabled={rate === 50} onClick={() => {
-              setRate(50)
-            }}>Fast</button>
-            <button disabled={rate === 500} onClick={() => {
-              setRate(500)
-            }}>Slow</button>
           </div>
 
           <h3>Generation: {generation}</h3>
