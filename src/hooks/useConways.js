@@ -89,9 +89,6 @@ const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
     return empty();
   });
 
-  const [rate, setRate] = useState(25)
-
-
 
   // 
   // Sets individual cells on the grid 
@@ -180,7 +177,7 @@ const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
       ))
     )
     setGeneration(++generation)
-    setTimeout(run, () => rate);
+    setTimeout(run, 50);
 
   }, [runningRef, nodeNeighbors, generation])
 
@@ -196,9 +193,7 @@ const useConways = ({ gridRows = 50, gridColumns = 50 }) => {
     stop,
     clear,
     isEvolving,
-    generation,
-    rate,
-    setRate
+    generation
   };
 }
 
