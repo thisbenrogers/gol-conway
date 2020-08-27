@@ -82,8 +82,8 @@ function App() {
             <button disabled={rate === 50} onClick={() => {
               setRate(50)
             }}>Fast</button>
-            <button disabled={rate === 200} onClick={() => {
-              setRate(200)
+            <button disabled={rate === 500} onClick={() => {
+              setRate(500)
             }}>Slow</button>
           </div>
 
